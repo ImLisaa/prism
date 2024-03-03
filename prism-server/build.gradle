@@ -1,0 +1,50 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+group = 'net.phantara.prism'
+version = '2024.02.24'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.Minestom:Minestom:b58db7d5b0'
+    implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
+    implementation 'com.google.guava:guava:27.1-jre'
+    implementation project(path: ':prism-api')
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+configurations.implementation.setCanBeResolved(true)
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrap',
+                'Multi-Release': true
+    }
+    archiveBaseName = 'prism-server-1.20.4'
+    archiveVersion = ''
+    archiveClassifier = ''
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.implementation.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
