@@ -59,7 +59,10 @@ class PrismServer {
             extensionManager.shutdown()
         }
 
-        server.start(PrismServerAPI.instance.serverProperties.getAddress().host, PrismServerAPI.instance.serverProperties.getAddress().port)
+        val host = System.getenv("RC_HOST")
+        val port = System.getenv("RC_PORT").toInt()
+
+        server.start(host, port)
 
         extensionManager.gotoPostInit()
     }
@@ -73,16 +76,6 @@ class PrismServer {
             BungeeCordProxy.enable()
         }
 
-        if (PrismServerAPI.instance.serverProperties.isBungeeCordSupport() && PrismServerAPI.instance.serverProperties.isVelocitySupport()) {
-            MinecraftServer.LOGGER.error("Bungeecord-Support and Velocity-Support conflict with each-other. Disabling both.")
-            this.properties.setProperty("velocity-support", false)
-            this.properties.setProperty("buneecord-support", false)
-            this.properties.updateDocument()
-            this.properties.reload()
-        }
-
-        if (PrismServerAPI.instance.serverProperties.isVelocitySupport()) {
-            VelocityProxy.enable(PrismServerAPI.instance.serverProperties.getVelocitySecretKey())
-        }
+        VelocityProxy.enable(System.getenv("PROXY_SECRET"))
     }
 }
