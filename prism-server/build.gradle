@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'net.phantara.prism'
-version = '2024.02.24'
+version = '2024.03.03'
 
 repositories {
     mavenCentral()
@@ -36,7 +36,7 @@ jar {
         attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrap',
                 'Multi-Release': true
     }
-    archiveBaseName = 'prism-server-1.20.4'
+    archiveBaseName = 'prism-server'
     archiveVersion = ''
     archiveClassifier = ''
 

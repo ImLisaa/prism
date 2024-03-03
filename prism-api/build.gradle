@@ -1,20 +1,50 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
 }
 
 group = 'net.phantara.prism'
-version = '1.0-SNAPSHOT'
+version = '2024.03.03'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'com.github.Minestom:Minestom:b58db7d5b0'
-    implementation 'com.google.guava:guava:27.1-jre'
+    compileOnly 'com.github.Minestom:Minestom:b58db7d5b0'
+    compileOnly 'com.google.guava:guava:27.1-jre'
 }
 
 
 kotlin {
     jvmToolchain(17)
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "net.phantara.prism"
+            artifactId = 'prism-api'
+            version = "${project.version}"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = 'https://artifactory.phantara.net/releases'
+            credentials {
+                username = System.getenv("PHANTARA_USERNAME") == null ? "" : System.getenv("PHANTARA_USERNAME")
+                password = System.getenv("PHANTARA_PASSWORD") == null ? "" : System.getenv("PHANTARA_PASSWORD")
+            }
+        }
+    }
 }
