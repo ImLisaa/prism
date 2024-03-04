@@ -1,18 +1,31 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
 }
 
 group = 'net.phantara.prism'
-version = '2024.03.03'
+version = '2024.03.04-redicloud'
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
-    implementation 'com.github.Minestom:Minestom:b58db7d5b0'
+    implementation('com.github.Minestom:Minestom:b58db7d5b0') {
+        exclude group: "org.jboss.shrinkwrap.resolver"
+        exclude group: "shrinkwrap-resolver-depchain"
+    }
+    implementation 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:3.3.0'
     implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
-    implementation 'com.google.guava:guava:27.1-jre'
+    implementation 'ch.qos.logback:logback-core:1.5.0'
+    implementation 'ch.qos.logback:logback-classic:1.5.0'
+    implementation 'com.google.inject:guice:7.0.0'
+    implementation 'net.kyori:adventure-text-minimessage:4.16.0'
+
     implementation project(path: ':prism-api')
 }
 
@@ -36,7 +49,7 @@ jar {
         attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrap',
                 'Multi-Release': true
     }
-    archiveBaseName = 'prism-server'
+    archiveBaseName = 'prism-server (redicloud)'
     archiveVersion = ''
     archiveClassifier = ''
 
@@ -45,6 +58,26 @@ jar {
     from {
         configurations.implementation.collect {
             it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "net.phantara.prism"
+            artifactId = 'prism-server'
+            version = "${project.version}"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = 'https://artifactory.phantara.net/releases'
+            credentials {
+                username = System.getenv("PHANTARA_USERNAME") == null ? "" : System.getenv("PHANTARA_USERNAME")
+                password = System.getenv("PHANTARA_PASSWORD") == null ? "" : System.getenv("PHANTARA_PASSWORD")
+            }
         }
     }
 }

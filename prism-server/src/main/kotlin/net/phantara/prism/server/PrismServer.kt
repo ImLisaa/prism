@@ -2,14 +2,12 @@ package net.phantara.prism.server
 
 import net.minestom.server.MinecraftServer
 import net.minestom.server.extensions.ExtensionManager
-import net.minestom.server.extras.MojangAuth
-import net.minestom.server.extras.bungee.BungeeCordProxy
 import net.minestom.server.extras.velocity.VelocityProxy
 import net.phantara.prism.api.PrismServerAPI
 import net.phantara.prism.server.api.impl.InstanceFactoryImpl
 import net.phantara.prism.server.api.impl.SchematicFactoryImpl
-import net.phantara.prism.server.api.impl.ServerPropertiesImpl
-import net.phantara.prism.server.api.properties.PrismServerProperties
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 
 /**
  * @author Lisa Kapahnke
@@ -28,33 +26,27 @@ class PrismServer {
             private set
     }
 
-    var properties: PrismServerProperties
-
     init {
         instance = this
-        this.properties = PrismServerProperties()
 
         val server = MinecraftServer.init()
-
         val extensionManager = ExtensionManager(MinecraftServer.process())
         extensionManager.start()
 
-        extensionManager.gotoPreInit()
-
         PrismServerAPI(
             InstanceFactoryImpl(),
-            ServerPropertiesImpl(),
             SchematicFactoryImpl()
         )
 
-        setupProperties()
+        extensionManager.gotoPreInit()
 
-        extensionManager.gotoInit()
+        setupProperties()
 
         System.setProperty("minestom.chunk-view-distance", "10")
         System.setProperty("minestom.entity-view-distance", "32")
 
-        MinecraftServer.setBrandName("PrismServer")
+        MinecraftServer.setBrandName("Prism")
+
         MinecraftServer.getSchedulerManager().buildShutdownTask {
             extensionManager.shutdown()
         }
@@ -62,20 +54,17 @@ class PrismServer {
         val host = System.getenv("RC_HOST")
         val port = System.getenv("RC_PORT").toInt()
 
+        extensionManager.gotoInit()
+
         server.start(host, port)
+
+        MinecraftServer.LOGGER.info("Started Prism-Server on ${host}:${port}.")
 
         extensionManager.gotoPostInit()
     }
 
     private fun setupProperties() {
-        if (PrismServerAPI.instance.serverProperties.isOnlineMode()) {
-            MojangAuth.init()
-        }
-
-        if (PrismServerAPI.instance.serverProperties.isBungeeCordSupport()) {
-            BungeeCordProxy.enable()
-        }
-
         VelocityProxy.enable(System.getenv("PROXY_SECRET"))
+
     }
 }

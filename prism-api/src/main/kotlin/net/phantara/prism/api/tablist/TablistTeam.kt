@@ -28,10 +28,10 @@ class TablistTeam(
     var predicate: Predicate<Player>
 ) {
 
-    private lateinit var team: Team
+    lateinit var team: Team
 
     fun toTeam(manager: TeamManager) {
-        this.team = TeamBuilder(this.name, manager).updateTeamColor(this.textColor).updatePrefix(this.prefix)
+        this.team = TeamBuilder("${this.id}${this.name}", manager).updateTeamColor(this.textColor).updatePrefix(this.prefix)
             .collisionRule(this.collisionRule).build()
     }
 }

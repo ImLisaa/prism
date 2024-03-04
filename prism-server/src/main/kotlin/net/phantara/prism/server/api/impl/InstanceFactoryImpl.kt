@@ -27,7 +27,7 @@ import kotlin.io.path.Path
 
 class InstanceFactoryImpl : IInstanceFactory {
 
-    val instances: HashMap<String, InstanceContainer> = HashMap()
+    private val instances: HashMap<String, InstanceContainer> = HashMap()
 
     init {
         val mapPath = Path("maps")
@@ -73,7 +73,6 @@ class InstanceFactoryImpl : IInstanceFactory {
                     instance, chunkX, chunkZ
                 )
             }
-            this.preLightAndLoadChunks(container)
             this.instances[name] = container
             MinecraftServer.getInstanceManager().registerInstance(container)
             MinecraftServer.LOGGER.info("Loaded Instance ${name}.")

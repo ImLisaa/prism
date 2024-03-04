@@ -15,7 +15,6 @@ import net.phantara.prism.api.schematic.ISchematicFactory
 
 class PrismServerAPI(
     val instanceFactory: IInstanceFactory,
-    val serverProperties: IServerProperties,
     val schematicFactory: ISchematicFactory
 
 ) {

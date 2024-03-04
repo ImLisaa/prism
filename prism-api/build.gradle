@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'net.phantara.prism'
-version = '2024.03.03'
+version = '2024.03.04'
 
 repositories {
     mavenCentral()
@@ -13,6 +13,7 @@ repositories {
 dependencies {
     compileOnly 'com.github.Minestom:Minestom:b58db7d5b0'
     compileOnly 'com.google.guava:guava:27.1-jre'
+    compileOnly 'net.kyori:adventure-text-minimessage:4.16.0'
 }
 
 

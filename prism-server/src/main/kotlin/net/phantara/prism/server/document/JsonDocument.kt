@@ -1,4 +1,4 @@
-package net.phantara.prism.server.JsonDocument
+package net.phantara.prism.server.document
 
 import com.google.gson.*
 import java.io.IOException
