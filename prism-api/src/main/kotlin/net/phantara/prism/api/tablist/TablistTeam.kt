@@ -31,7 +31,7 @@ class TablistTeam(
     private lateinit var team: Team
 
     fun toTeam(manager: TeamManager) {
-        this.team = TeamBuilder(this.name, manager).updateTeamColor(this.textColor).updatePrefix(this.prefix)
+        this.team = TeamBuilder("${this.id.toString().padStart(3, '0')}${this.name}", manager).updateTeamColor(this.textColor).updatePrefix(this.prefix)
             .collisionRule(this.collisionRule).build()
     }
 }

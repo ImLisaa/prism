@@ -54,7 +54,7 @@ class PrismServer {
         System.setProperty("minestom.chunk-view-distance", "10")
         System.setProperty("minestom.entity-view-distance", "32")
 
-        MinecraftServer.setBrandName("PrismServer")
+        MinecraftServer.setBrandName("Prism 1.20.4")
         MinecraftServer.getSchedulerManager().buildShutdownTask {
             extensionManager.shutdown()
         }

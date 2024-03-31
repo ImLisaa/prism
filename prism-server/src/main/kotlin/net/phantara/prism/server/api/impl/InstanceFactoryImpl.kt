@@ -1,5 +1,6 @@
 package net.phantara.prism.server.api.impl
 
+import com.google.common.annotations.Beta
 import com.google.common.collect.ImmutableSet
 import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.*
@@ -73,7 +74,7 @@ class InstanceFactoryImpl : IInstanceFactory {
                     instance, chunkX, chunkZ
                 )
             }
-            this.preLightAndLoadChunks(container)
+            //this.preLightAndLoadChunks(container) - Crashes Server when loading for some Reason
             this.instances[name] = container
             MinecraftServer.getInstanceManager().registerInstance(container)
             MinecraftServer.LOGGER.info("Loaded Instance ${name}.")
@@ -106,6 +107,7 @@ class InstanceFactoryImpl : IInstanceFactory {
             .write(path)
     }
 
+    @Beta
     private fun preLightAndLoadChunks(container: InstanceContainer) {
         val chunks = ArrayList<CompletableFuture<Chunk>>()
         ChunkUtils.forChunksInRange(0, 0, 32) { x, z ->

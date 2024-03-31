@@ -1,5 +1,8 @@
 package net.phantara.prism.api.game.countdown
 
+import com.google.common.annotations.Beta
+import org.jetbrains.annotations.ApiStatus.Experimental
+import org.jetbrains.annotations.ApiStatus.ScheduledForRemoval
 import java.util.function.Predicate
 
 /**
@@ -11,6 +14,14 @@ import java.util.function.Predicate
  * this file without permission.
  **/
 
+@Beta
+@Experimental
+@ScheduledForRemoval
+@Deprecated("Will be replaced with Kotlin Class soon.")
+/**
+ * No implementation yet. Will change to Kotlin Class soon.
+ * TODO: Change Class from Interface and rebuild Class
+ */
 interface ICountdown {
 
     fun start()
