@@ -8,6 +8,10 @@ version = '2024.03.31'
 
 repositories {
     mavenCentral()
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
 }
 
 dependencies {
