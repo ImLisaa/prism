@@ -15,7 +15,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.github.Minestom:Minestom:b58db7d5b0'
+    compileOnly('com.github.Minestom:Minestom:b5c35e0144') {
+        exclude group: "org.jboss.shrinkwrap.resolver"
+        exclude group: "shrinkwrap-resolver-depchain"
+    }
     compileOnly 'com.google.guava:guava:27.1-jre'
 }
 
