@@ -27,13 +27,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Kotlin deploy script
-        run: kotlin ./deploy.kts
-        env:
-          build_number: ${{ github.run_number }}
-          build_vcs_number: ${{ github.sha }}
-          branch: ${{ github.head_ref }}
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v3
         with:
