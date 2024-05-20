@@ -21,12 +21,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: fwilhe2/setup-kotlin@main
 
-      - name: Make gradlewexecutable
-        run: chmod +x ./gradlew
-
-      - name: Make deploy script executable0
-        run: chmod +x ./deploy.kts
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
