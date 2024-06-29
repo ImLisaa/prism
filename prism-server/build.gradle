@@ -15,7 +15,6 @@ repositories {
 
 dependencies {
     implementation 'net.minestom:minestom-snapshots:435534368b'
-    implementation 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:3.3.0'
     implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
     implementation 'com.google.guava:guava:27.1-jre'
     implementation 'ch.qos.logback:logback-core:1.5.0'
@@ -43,7 +42,7 @@ jar {
         attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrapKt',
                 'Multi-Release': true
     }
-    archiveBaseName = 'prism-server'
+    archiveBaseName = 'prism-server (redicloud)'
     archiveVersion = ''
     archiveClassifier = ''
 

@@ -58,8 +58,8 @@ class PrismServer {
         }
 
         server.start(
-            PrismServerAPI.instance.serverProperties.getAddress().host,
-            PrismServerAPI.instance.serverProperties.getAddress().port
+            System.getenv("RC_HOST"),
+            System.getenv("RC_PORT").toInt()
         )
 
         extensionManager.gotoPostInit()
@@ -80,10 +80,11 @@ class PrismServer {
             this.properties.setProperty("buneecord-support", false)
             this.properties.updateDocument()
             this.properties.reload()
+            this.properties = PrismServerProperties()
         }
 
         if (PrismServerAPI.instance.serverProperties.isVelocitySupport()) {
-            VelocityProxy.enable(PrismServerAPI.instance.serverProperties.getVelocitySecretKey())
+            VelocityProxy.enable(System.getenv("PROXY_SECRET"))
         }
     }
 }
