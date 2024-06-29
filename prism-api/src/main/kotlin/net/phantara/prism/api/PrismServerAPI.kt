@@ -2,7 +2,6 @@ package net.phantara.prism.api
 
 import net.phantara.prism.api.instance.IInstanceFactory
 import net.phantara.prism.api.properties.IServerProperties
-import net.phantara.prism.api.schematic.ISchematicFactory
 
 /**
  * @author Lisa Kapahnke
@@ -16,7 +15,6 @@ import net.phantara.prism.api.schematic.ISchematicFactory
 class PrismServerAPI(
     val instanceFactory: IInstanceFactory,
     val serverProperties: IServerProperties,
-    val schematicFactory: ISchematicFactory
 
 ) {
 

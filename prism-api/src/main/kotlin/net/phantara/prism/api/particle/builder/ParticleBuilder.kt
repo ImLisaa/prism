@@ -66,7 +66,7 @@ class ParticleBuilder {
 
     private fun toPacket(point: Point): ParticlePacket {
         return ParticlePacket(
-            particle.id(),
+            particle,
             false,
             point.x(),
             point.y(),
@@ -76,7 +76,6 @@ class ParticleBuilder {
             offsetZ,
             speed,
             count,
-            data
         )
     }
 }

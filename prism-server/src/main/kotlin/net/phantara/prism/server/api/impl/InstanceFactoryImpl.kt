@@ -4,6 +4,7 @@ import com.google.common.annotations.Beta
 import com.google.common.collect.ImmutableSet
 import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.*
+import net.minestom.server.instance.anvil.AnvilLoader
 import net.minestom.server.utils.chunk.ChunkSupplier
 import net.minestom.server.utils.chunk.ChunkUtils
 import net.minestom.server.world.DimensionType
@@ -14,7 +15,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 import java.util.concurrent.CompletableFuture
-import java.util.function.Consumer
 import kotlin.io.path.Path
 
 /**
@@ -28,7 +28,7 @@ import kotlin.io.path.Path
 
 class InstanceFactoryImpl : IInstanceFactory {
 
-    val instances: HashMap<String, InstanceContainer> = HashMap()
+    private val instances: HashMap<String, InstanceContainer> = HashMap()
 
     init {
         val mapPath = Path("maps")
@@ -74,7 +74,7 @@ class InstanceFactoryImpl : IInstanceFactory {
                     instance, chunkX, chunkZ
                 )
             }
-            //this.preLightAndLoadChunks(container) - Crashes Server when loading for some Reason
+            this.preLightAndLoadChunks(container)
             this.instances[name] = container
             MinecraftServer.getInstanceManager().registerInstance(container)
             MinecraftServer.LOGGER.info("Loaded Instance ${name}.")

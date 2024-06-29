@@ -7,7 +7,6 @@ import net.minestom.server.extras.bungee.BungeeCordProxy
 import net.minestom.server.extras.velocity.VelocityProxy
 import net.phantara.prism.api.PrismServerAPI
 import net.phantara.prism.server.api.impl.InstanceFactoryImpl
-import net.phantara.prism.server.api.impl.SchematicFactoryImpl
 import net.phantara.prism.server.api.impl.ServerPropertiesImpl
 import net.phantara.prism.server.api.properties.PrismServerProperties
 
@@ -43,8 +42,7 @@ class PrismServer {
 
         PrismServerAPI(
             InstanceFactoryImpl(),
-            ServerPropertiesImpl(),
-            SchematicFactoryImpl()
+            ServerPropertiesImpl()
         )
 
         setupProperties()
@@ -54,12 +52,15 @@ class PrismServer {
         System.setProperty("minestom.chunk-view-distance", "10")
         System.setProperty("minestom.entity-view-distance", "32")
 
-        MinecraftServer.setBrandName("Prism 1.20.4")
+        MinecraftServer.setBrandName("Prism 1.21")
         MinecraftServer.getSchedulerManager().buildShutdownTask {
             extensionManager.shutdown()
         }
 
-        server.start(PrismServerAPI.instance.serverProperties.getAddress().host, PrismServerAPI.instance.serverProperties.getAddress().port)
+        server.start(
+            PrismServerAPI.instance.serverProperties.getAddress().host,
+            PrismServerAPI.instance.serverProperties.getAddress().port
+        )
 
         extensionManager.gotoPostInit()
     }

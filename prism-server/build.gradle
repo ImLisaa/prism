@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'net.phantara.prism'
-version = '2024.03.31'
+version = '2024.06.29'
 
 repositories {
     mavenCentral()
@@ -14,10 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation('com.github.Minestom:Minestom:b5c35e0144') {
-        exclude group: "org.jboss.shrinkwrap.resolver"
-        exclude group: "shrinkwrap-resolver-depchain"
-    }
+    implementation 'net.minestom:minestom-snapshots:435534368b'
     implementation 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:3.3.0'
     implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
     implementation 'com.google.guava:guava:27.1-jre'
@@ -27,14 +24,14 @@ dependencies {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 configurations.implementation.setCanBeResolved(true)
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
     compileJava {
         options.encoding = "UTF-8"
