@@ -15,15 +15,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'net.minestom:minestom-snapshots:435534368b'
-    compileOnly 'com.google.guava:guava:27.1-jre'
+    compileOnly 'net.minestom:minestom-snapshots:6877277b60'
 }
-
-
-kotlin {
-    jvmToolchain(21)
-}
-
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(21))

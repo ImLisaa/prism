@@ -1,7 +1,6 @@
 package net.phantara.prism.server
 
 import net.minestom.server.MinecraftServer
-import net.phantara.prism.api.PrismServerAPI
 
 /**
  * @author Lisa Kapahnke
@@ -12,7 +11,7 @@ import net.phantara.prism.api.PrismServerAPI
  * this file without permission.
  **/
 
-fun main(args: Array<String>) {
+fun main() {
     PrismServer()
 
     Runtime.getRuntime().addShutdownHook(Thread {

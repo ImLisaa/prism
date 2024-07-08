@@ -1,11 +1,10 @@
 package net.phantara.prism.api.instance
 
-import com.google.common.collect.ImmutableSet
 import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.InstanceContainer
 import net.phantara.prism.api.instance.type.InstanceType
 import java.io.FileFilter
-import java.util.Optional
+import java.util.*
 import kotlin.io.path.Path
 
 /**
@@ -27,7 +26,7 @@ interface IInstanceFactory {
 
     fun getInstance(name: String) : Optional<InstanceContainer>
 
-    fun getInstances(): ImmutableSet<InstanceContainer>
+    fun getInstances(): Collection<InstanceContainer>
 
     fun loadAllInstances() {
         val files = Path("maps").toFile().listFiles(FileFilter { it.isDirectory })

@@ -15,16 +15,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'net.minestom:minestom-snapshots:435534368b'
-    implementation 'org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-impl-maven:3.3.0'
+    implementation 'net.minestom:minestom-snapshots:6877277b60'
     implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
-    implementation 'com.google.guava:guava:27.1-jre'
     implementation 'ch.qos.logback:logback-core:1.5.0'
     implementation 'ch.qos.logback:logback-classic:1.5.0'
+    implementation "net.kyori:adventure-text-minimessage:4.17.0"
     implementation project(path: ':prism-api')
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.22'
 }
-
-configurations.implementation.setCanBeResolved(true)
 
 java {
     toolchain {
@@ -37,12 +35,13 @@ java {
 
 shadowJar {
     relocate 'kotlin', 'net.phantara.prism.kotlin'
+    relocate 'org.jetbrains.kotlin', 'net.phantara.prism.kotlin.org.jetbrains.kotlin'
 
-    archiveBaseName = "prism_latest.jar"
+    archiveFileName = "prism_latest.jar"
 
     manifest {
         attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrapKt',
-                'Multi-Release': true
+                'Multi-Release': false
     }
 }
 

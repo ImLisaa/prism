@@ -1,6 +1,6 @@
 package net.phantara.prism.api.properties
 
-import com.google.common.net.HostAndPort
+import java.net.InetSocketAddress
 
 /**
  * @author Lisa Kapahnke
@@ -13,7 +13,7 @@ import com.google.common.net.HostAndPort
 
 interface IServerProperties {
 
-    fun getAddress(): HostAndPort
+    fun getAddress(): InetSocketAddress
     fun getMaxPlayers(): Int
     fun getMotd(): String
     fun isOnlineMode(): Boolean

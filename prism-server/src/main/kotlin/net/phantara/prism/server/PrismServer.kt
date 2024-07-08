@@ -38,27 +38,23 @@ class PrismServer {
         val extensionManager = ExtensionManager(MinecraftServer.process())
         extensionManager.start()
 
-        extensionManager.gotoPreInit()
-
         PrismServerAPI(
             InstanceFactoryImpl(),
             ServerPropertiesImpl()
         )
 
+        System.setProperty("minestom.chunk-view-distance", "10")
+        System.setProperty("minestom.entity-view-distance", "32")
+        MinecraftServer.setBrandName("Prism 1.21")
+
+        extensionManager.gotoPreInit()
+
         setupProperties()
 
         extensionManager.gotoInit()
 
-        System.setProperty("minestom.chunk-view-distance", "10")
-        System.setProperty("minestom.entity-view-distance", "32")
-
-        MinecraftServer.setBrandName("Prism 1.21")
-        MinecraftServer.getSchedulerManager().buildShutdownTask {
-            extensionManager.shutdown()
-        }
-
         server.start(
-            PrismServerAPI.instance.serverProperties.getAddress().host,
+            PrismServerAPI.instance.serverProperties.getAddress().hostName,
             PrismServerAPI.instance.serverProperties.getAddress().port
         )
 

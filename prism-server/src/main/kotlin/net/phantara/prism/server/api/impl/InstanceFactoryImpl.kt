@@ -1,7 +1,5 @@
 package net.phantara.prism.server.api.impl
 
-import com.google.common.annotations.Beta
-import com.google.common.collect.ImmutableSet
 import net.minestom.server.MinecraftServer
 import net.minestom.server.instance.*
 import net.minestom.server.instance.anvil.AnvilLoader
@@ -96,8 +94,8 @@ class InstanceFactoryImpl : IInstanceFactory {
         return Optional.ofNullable(this.instances[name])
     }
 
-    override fun getInstances(): ImmutableSet<InstanceContainer> {
-        return ImmutableSet.copyOf(this.instances.values)
+    override fun getInstances(): Collection<InstanceContainer> {
+        return Collections.unmodifiableCollection(this.instances.values)
     }
 
     private fun writeIdToFile(containerIdentifier: UUID, path: Path) {
@@ -106,8 +104,6 @@ class InstanceFactoryImpl : IInstanceFactory {
             .addIfNotExists("identifier", containerIdentifier.toString())
             .write(path)
     }
-
-    @Beta
     private fun preLightAndLoadChunks(container: InstanceContainer) {
         val chunks = ArrayList<CompletableFuture<Chunk>>()
         ChunkUtils.forChunksInRange(0, 0, 32) { x, z ->

@@ -1,9 +1,8 @@
 package net.phantara.prism.server.api.impl
 
-import com.google.common.net.HostAndPort
 import net.phantara.prism.api.properties.IServerProperties
 import net.phantara.prism.server.PrismServer
-import net.phantara.prism.server.api.properties.PrismServerProperties
+import java.net.InetSocketAddress
 
 /**
  * @author Lisa Kapahnke
@@ -16,10 +15,10 @@ import net.phantara.prism.server.api.properties.PrismServerProperties
 
 class ServerPropertiesImpl : IServerProperties {
 
-    override fun getAddress(): HostAndPort {
+    override fun getAddress(): InetSocketAddress {
         val host = PrismServer.instance.properties.getProperty("address", String::class.java)
         val port = PrismServer.instance.properties.getProperty("port", Int::class.java)
-        return HostAndPort.fromParts(host, port)
+        return InetSocketAddress(host, port)
     }
 
     override fun getMaxPlayers(): Int {

@@ -4,22 +4,3 @@ plugins {
 
 group = 'net.phantara.prism'
 version = '1.0-SNAPSHOT'
-
-allprojects {
-    repositories {
-        mavenCentral()
-        maven {
-            name = 'jitpack'
-            url = 'https://jitpack.io'
-        }
-    }
-
-    java {
-        toolchain {
-            languageVersion.set(JavaLanguageVersion.of(17))
-        }
-        compileJava {
-            options.encoding = "UTF-8"
-        }
-    }
-}
