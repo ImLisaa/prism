@@ -1,9 +1,10 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm'
+    id "io.github.goooler.shadow" version "8.1.8"
 }
 
 group = 'net.phantara.prism'
-version = '2024.06.29'
+version = '2024.07.08'
 
 repositories {
     mavenCentral()
@@ -23,10 +24,6 @@ dependencies {
     implementation project(path: ':prism-api')
 }
 
-kotlin {
-    jvmToolchain(21)
-}
-
 configurations.implementation.setCanBeResolved(true)
 
 java {
@@ -38,20 +35,17 @@ java {
     }
 }
 
-jar {
+shadowJar {
+    relocate 'kotlin', 'net.phantara.prism.kotlin'
+
+    archiveBaseName = "prism_latest.jar"
+
     manifest {
         attributes 'Main-Class': 'net.phantara.prism.server.PrismServerBootstrapKt',
                 'Multi-Release': true
     }
-    archiveBaseName = 'prism-server'
-    archiveVersion = ''
-    archiveClassifier = ''
+}
 
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    from {
-        configurations.implementation.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+build {
+    dependsOn shadowJar
 }
